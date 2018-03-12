@@ -26,7 +26,7 @@ import rospy
 import time
 
 motor_pwm = 1500
-servo_pwm = 1580
+servo_pwm = 1540
 
 def arduino_interface():
     global ecu_pub, motor_pwm, servo_pwm
@@ -36,15 +36,15 @@ def arduino_interface():
     loop_rate   = 50
     dt          = 1.0 / loop_rate
     rate        = rospy.Rate(loop_rate)
-    
+    delta = 40 
     time_prev = time.time()
     ecu_pub = Publisher('ecu_pwm', ECU, queue_size = 10)
 
     while not rospy.is_shutdown():
         if time.time() >= time_prev and time.time() < time_prev + 7: 
-            motor_pwm = 1620
+            motor_pwm = 1620 + delta
         if time.time() >= time_prev + 5 and time.time() < time_prev + 12: 
-            motor_pwm = 1440 #1465
+            motor_pwm = 1465 + delta
         #if time.time() >= time_prev + 5 and time.time() < time_prev + 10: 
          #   motor_pwm = 84.0
         #if time.time() >= time_prev + 12 and time.time() < time_prev + 17: 

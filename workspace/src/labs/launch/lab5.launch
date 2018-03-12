@@ -27,6 +27,8 @@
         <param name="camera_on" value="false" />
     </node>
 
-    <node pkg="labs" type="BrakingModelID.py" name="model_id" />
- 
+    <node pkg="labs" type="velocity_estimation.py" name="vel_estimator" >  
+    </node>
+    <node pkg="labs" type="LongitudinalController.py" name="controller">
+    </node>
 </launch>
