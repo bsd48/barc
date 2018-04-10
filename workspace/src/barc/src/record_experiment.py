@@ -61,7 +61,7 @@ class RecordExperiment():
             os.makedirs(image_dir)
          
         # start rosrecord for following topics
-        self.topics = ['/imu/data', '/encoder', '/ecu', '/ecu_pwm', '/image_transformed/compressed/', '/fix', '/vel_est', 'vel_meas']
+        self.topics = ['/imu/data', '/encoder', '/ecu', '/ecu_pwm', '/image_transformed/compressed/', '/fix', '/vel_est']
         self.rosbag_file_path = os.path.abspath(rosbag_dir + '/' + self.experiment_name + '.bag')
         self.start_record_data()
         
@@ -173,8 +173,7 @@ class RecordExperiment():
                      'encoder_FL', 'encoder_FR','encoder_BL','encoder_BR', 'velocity_FL', 'velocity_FR',
                      'velocity_BL', 'velocity_BR', 'motor', 'servo','motor_pwm','servo_pwm',
                      'image_id',
-                     'longitude','latitude','altitude','gps_status','gps_service',
-                      'vel_meas_x', 'vel_meas_y', 'vel_meas_y']
+                     'longitude','latitude','altitude','gps_status','gps_service']
 
         signal_dict = dict()
 
@@ -236,10 +235,7 @@ class RecordExperiment():
                 altitude = msg.altitude
                 gps_status = msg.status.status
                 gps_service = msg.status.service
-            if topic =='vel_meas':
-                vel_meas_x = msg.x
-                vel_meas_y = msg.y
-                vel_meas_z = msg.z
+
             # Python introspection from list 'vars_list'
             for v in vars_list:
                 if v in dict(globals(), **locals()):

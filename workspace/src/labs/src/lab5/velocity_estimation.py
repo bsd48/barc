@@ -5,7 +5,7 @@ from barc.msg import Encoder
 from geometry_msgs.msg import Vector3
 from math import pi
 # input variables
-loop_rate = 10
+loop_rate = 5
 dt = 1.0/loop_rate
 tire_radius = 0.051;
 # from encoder

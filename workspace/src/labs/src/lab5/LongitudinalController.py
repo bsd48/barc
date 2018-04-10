@@ -57,9 +57,9 @@ class PID():
         return acc
 
 # =====================================end of the controller====================================#
-def vel_mes_update(data):
+def vel_est_update(data):
     global v_meas
-    v_meas = data.x
+    v_meas = data.BR
     
 # state estimation node
 def controller():
@@ -71,13 +71,14 @@ def controller():
 
     # TODO: Add your necessary topic subscriptions / publications, depending on your preferred method of velocity estimation
     ecu_pub   = rospy.Publisher('ecu_pwm', ECU, queue_size = 10)
-    v_meas_sub = rospy.Subscriber('vel_meas', Vector3, vel_mes_update)
+    #v_meas_sub = rospy.Subscriber('vel_meas', Vector3, vel_mes_update)
+    v_meas_sub = rospy.Subscriber('vel_est', Encoder, vel_est_update)
     # Set node rate
-    loop_rate   = 5
+    loop_rate   = 10
     rate        = rospy.Rate(loop_rate)
     
     # TODO: Initialize your PID controller here, with your chosen PI gains
-    PID_control = PID(kp = 20, ki = 5, kd = 0)
+    PID_control = PID(kp = 60, ki = 20, kd = 20)
     
     while not rospy.is_shutdown():
         # calculate acceleration from PID controller.
